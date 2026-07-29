@@ -4,6 +4,14 @@ pluginManagement {
             name = 'Fabric'
             url = 'https://maven.fabricmc.net/'
         }
+        maven {
+            name = 'Cloth Config'
+            url = 'https://maven.shedaniel.me/'
+        }
+        maven {
+            name = 'Mod Menu'
+            url = 'https://maven.terraformersmc.com/'
+        }
         gradlePluginPortal()
     }
 }
