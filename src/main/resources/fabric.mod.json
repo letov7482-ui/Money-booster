@@ -7,12 +7,15 @@
   "authors": ["Midpoint"],
   "environment": "client",
   "entrypoints": {
-    "client": ["me.midpoint.MidpointClient"]
+    "client": ["me.midpoint.MidpointClient"],
+    "modmenu": ["me.midpoint.config.ModMenuIntegration"]
   },
   "mixins": ["midpoint.mixins.json"],
   "depends": {
     "fabricloader": ">=0.15.0",
     "minecraft": "1.21.4",
-    "fabric-api": "*"
+    "fabric-api": "*",
+    "cloth-config": ">=15.0.0",
+    "modmenu": ">=11.0.0"
   }
 }
