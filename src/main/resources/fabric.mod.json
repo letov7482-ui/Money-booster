@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 1,
+  "id": "midpoint",
+  "version": "1.0.0",
+  "name": "Midpoint God Mode",
+  "description": "God Mode Farming Suite for Fabric 1.21.4",
+  "authors": ["Midpoint"],
+  "environment": "client",
+  "entrypoints": {
+    "client": ["me.midpoint.MidpointClient"]
+  },
+  "mixins": ["midpoint.mixins.json"],
+  "depends": {
+    "fabricloader": ">=0.15.0",
+    "minecraft": "1.21.4",
+    "fabric-api": "*"
+  }
+}
