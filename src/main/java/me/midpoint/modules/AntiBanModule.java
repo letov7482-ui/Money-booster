@@ -6,7 +6,9 @@ public class AntiBanModule extends BaseModule {
     private Random random = new Random();
     private int timer = 0;
 
-    public AntiBanModule() { super("AntiBan"); }
+    public AntiBanModule() {
+        super("AntiBan");
+    }
 
     @Override
     public void tick() {
