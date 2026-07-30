@@ -1,5 +1,6 @@
 package me.midpoint;
 
+import me.midpoint.config.ModConfig;
 import me.midpoint.modules.*;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
@@ -8,18 +9,26 @@ import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import org.lwjgl.glfw.GLFW;
 
+import me.shedaniel.autoconfig.AutoConfig;
+import me.shedaniel.autoconfig.serializer.GsonConfigSerializer;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class MidpointClient implements ClientModInitializer {
     public static List<BaseModule> modules = new ArrayList<>();
+    public static ModConfig CONFIG;
     public static KeyBinding toggleKey;
 
     @Override
     public void onInitializeClient() {
+        AutoConfig.register(ModConfig.class, GsonConfigSerializer::new);
+        CONFIG = AutoConfig.getConfigHolder(ModConfig.class).getConfig();
+
         modules.add(new AntiBanModule());
+        modules.add(new KillAuraModule());
         modules.add(new AutoMinerModule());
-        modules.add(new AutoBuyerModule());
+        modules.add(new EventHelperModule());
 
         toggleKey = KeyBindingHelper.registerKeyBinding(
             new KeyBinding("key.midpoint.toggle", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_P, "category.midpoint")
@@ -33,7 +42,7 @@ public class MidpointClient implements ClientModInitializer {
             for (BaseModule m : modules) if (m.enabled) m.tick();
         });
 
-        System.out.println("[Midpoint] God Mode загружен! Модулей: " + modules.size());
-        System.out.println("[Midpoint] Нажми P для включения/выключения модулей.");
+        System.out.println("[Midpoint] GodMode Client v2.0 загружен!");
+        System.out.println("[Midpoint] Нажми P для открытия меню настроек.");
     }
 }
