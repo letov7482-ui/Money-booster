@@ -3,6 +3,7 @@ package me.midpoint;
 import me.midpoint.modules.*;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
 import org.lwjgl.glfw.GLFW;
@@ -12,11 +13,7 @@ import java.util.List;
 
 public class MidpointClient implements ClientModInitializer {
     public static List<BaseModule> modules = new ArrayList<>();
-    
-    // Горячие клавиши
-    private static KeyBinding toggleAntiBan;
-    private static KeyBinding toggleAutoMiner;
-    private static KeyBinding toggleAutoBuyer;
+    public static KeyBinding menuKey;
 
     @Override
     public void onInitializeClient() {
@@ -25,32 +22,33 @@ public class MidpointClient implements ClientModInitializer {
         modules.add(new AutoMinerModule());
         modules.add(new AutoBuyerModule());
 
-        // Регистрация горячих клавиш (без Fabric API!)
-        toggleAntiBan = new KeyBinding(
-            "key.midpoint.antiban",
-            InputUtil.Type.KEYSYM,
-            GLFW.GLFW_KEY_F1,
-            "key.midpoint.category"
-        );
-        
-        toggleAutoMiner = new KeyBinding(
-            "key.midpoint.autominer",
-            InputUtil.Type.KEYSYM,
-            GLFW.GLFW_KEY_F2,
-            "key.midpoint.category"
-        );
-        
-        toggleAutoBuyer = new KeyBinding(
-            "key.midpoint.autobuyer",
-            InputUtil.Type.KEYSYM,
-            GLFW.GLFW_KEY_F3,
-            "key.midpoint.category"
+        // Клавиша для включения/выключения всех модулей (P)
+        menuKey = KeyBindingHelper.registerKeyBinding(
+            new KeyBinding(
+                "key.midpoint.toggle",
+                InputUtil.Type.KEYSYM,
+                GLFW.GLFW_KEY_P,
+                "category.midpoint"
+            )
         );
 
-        // Только для Fabric API — но мы не можем зарегистрировать клавиши без Fabric API
-        // Поэтому используем прямой перехват в миксине
+        // Tick обработчик
+        ClientTickEvents.END_CLIENT_TICK.register(client -> {
+            // Переключение всех модулей по нажатию P
+            if (menuKey.wasPressed()) {
+                for (BaseModule m : modules) {
+                    m.toggle();
+                }
+                System.out.println("[Midpoint] Модули переключены!");
+            }
+
+            if (client.player == null) return;
+            for (BaseModule m : modules) {
+                if (m.enabled) m.tick();
+            }
+        });
 
         System.out.println("[Midpoint] God Mode загружен! Модулей: " + modules.size());
-        System.out.println("[Midpoint] Настрой модули через код или добавь GUI.");
+        System.out.println("[Midpoint] Нажми P для включения/выключения модулей.");
     }
 }
