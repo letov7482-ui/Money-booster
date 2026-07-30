@@ -9,7 +9,7 @@ public abstract class BaseModule {
 
     public BaseModule(String name) {
         this.name = name;
-        this.enabled = false;
+        this.enabled = true;
     }
 
     public void toggle() {
@@ -21,4 +21,5 @@ public abstract class BaseModule {
     public void onEnable() {}
     public void onDisable() {}
     public void tick() {}
+    public void render() {}
 }
