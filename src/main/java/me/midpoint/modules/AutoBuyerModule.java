@@ -3,7 +3,9 @@ package me.midpoint.modules;
 import net.minecraft.text.Text;
 
 public class AutoBuyerModule extends BaseModule {
-    public AutoBuyerModule() { super("AutoBuyer"); }
+    public AutoBuyerModule() {
+        super("AutoBuyer");
+    }
 
     @Override
     public void tick() {
