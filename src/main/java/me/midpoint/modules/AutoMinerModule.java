@@ -90,4 +90,4 @@ public class AutoMinerModule extends BaseModule {
         }
         enabled = false;
     }
-                 }
+}
