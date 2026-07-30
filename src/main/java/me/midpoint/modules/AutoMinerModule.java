@@ -13,16 +13,18 @@ public class AutoMinerModule extends BaseModule {
     private int length = 0;
     private final int MAX = 30;
     private boolean returning = false;
-    private Random r = new Random();
+    private Random random = new Random();
     private int delay = 0;
 
-    public AutoMinerModule() { super("AutoMiner"); }
+    public AutoMinerModule() {
+        super("AutoMiner");
+    }
 
     @Override
     public void tick() {
         if (!enabled || mc.player == null) return;
         if (delay-- > 0) return;
-        delay = 5 + r.nextInt(15);
+        delay = 5 + random.nextInt(15);
 
         if (basePos == null) basePos = mc.player.getBlockPos();
 
