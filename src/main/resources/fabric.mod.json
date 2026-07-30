@@ -1,18 +1,21 @@
 {
   "schemaVersion": 1,
   "id": "midpoint",
-  "version": "1.0.0",
-  "name": "Midpoint God Mode",
-  "description": "God Mode Farming Suite for Fabric 1.21.4",
+  "version": "2.0.0",
+  "name": "GodMode Client v2.0",
+  "description": "Ultimate PvP Client with AntiBan + KillAura + AutoMiner + EventHelper",
   "authors": ["Midpoint"],
   "environment": "client",
   "entrypoints": {
-    "client": ["me.midpoint.MidpointClient"]
+    "client": ["me.midpoint.MidpointClient"],
+    "modmenu": ["me.midpoint.config.ModMenuIntegration"]
   },
   "mixins": ["midpoint.mixins.json"],
   "depends": {
     "fabricloader": ">=0.15.0",
     "minecraft": "1.21.4",
-    "fabric-api": "*"
+    "fabric-api": ">=0.92.0",
+    "cloth-config": ">=15.0.0",
+    "modmenu": ">=11.0.0"
   }
 }
