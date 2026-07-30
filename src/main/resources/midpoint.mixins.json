@@ -4,7 +4,6 @@
   "package": "me.midpoint.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "MixinMinecraftClient",
-    "MixinClientPlayNetworkHandler"
+    "MixinMinecraftClient"
   ]
 }
