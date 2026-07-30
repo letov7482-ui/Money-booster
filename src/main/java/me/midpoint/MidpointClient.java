@@ -13,7 +13,7 @@ import java.util.List;
 
 public class MidpointClient implements ClientModInitializer {
     public static List<BaseModule> modules = new ArrayList<>();
-    public static KeyBinding menuKey;
+    public static KeyBinding toggleKey;
 
     @Override
     public void onInitializeClient() {
@@ -23,7 +23,7 @@ public class MidpointClient implements ClientModInitializer {
         modules.add(new AutoBuyerModule());
 
         // Клавиша для включения/выключения всех модулей (P)
-        menuKey = KeyBindingHelper.registerKeyBinding(
+        toggleKey = KeyBindingHelper.registerKeyBinding(
             new KeyBinding(
                 "key.midpoint.toggle",
                 InputUtil.Type.KEYSYM,
@@ -34,8 +34,7 @@ public class MidpointClient implements ClientModInitializer {
 
         // Tick обработчик
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            // Переключение всех модулей по нажатию P
-            if (menuKey.wasPressed()) {
+            if (toggleKey.wasPressed()) {
                 for (BaseModule m : modules) {
                     m.toggle();
                 }
