@@ -17,34 +17,20 @@ public class MidpointClient implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        // Регистрация модулей
         modules.add(new AntiBanModule());
         modules.add(new AutoMinerModule());
         modules.add(new AutoBuyerModule());
 
-        // Клавиша для включения/выключения всех модулей (P)
         toggleKey = KeyBindingHelper.registerKeyBinding(
-            new KeyBinding(
-                "key.midpoint.toggle",
-                InputUtil.Type.KEYSYM,
-                GLFW.GLFW_KEY_P,
-                "category.midpoint"
-            )
+            new KeyBinding("key.midpoint.toggle", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_P, "category.midpoint")
         );
 
-        // Tick обработчик
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (toggleKey.wasPressed()) {
-                for (BaseModule m : modules) {
-                    m.toggle();
-                }
-                System.out.println("[Midpoint] Модули переключены!");
+                for (BaseModule m : modules) m.toggle();
             }
-
             if (client.player == null) return;
-            for (BaseModule m : modules) {
-                if (m.enabled) m.tick();
-            }
+            for (BaseModule m : modules) if (m.enabled) m.tick();
         });
 
         System.out.println("[Midpoint] God Mode загружен! Модулей: " + modules.size());
